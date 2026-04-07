@@ -2,6 +2,7 @@ import os
 import httpx
 from dotenv import load_dotenv
 from ms_graph import get_access_token, MS_GRAPH_BASE_URL
+from param_config import FETCH_MAIL_QUERY_PARAMS
 
 base = f"{MS_GRAPH_BASE_URL}"
 
@@ -18,7 +19,7 @@ def get_folder_id(headers, folder_name, parent_folder_id=None):
     folders = data.get("value", [])
     
     for folder in folders:
-        print(folder.get("displayName"), folder.get("id")) # * temp for debugging
+       # print(folder.get("displayName"), folder.get("id")) # * temp for debugging
         if folder.get("displayName") == folder_name:
             return folder.get("id")
         
@@ -33,12 +34,12 @@ def get_folder_id(headers, folder_name, parent_folder_id=None):
         
 def fetch_mails(headers, folder_id):
     url = f"{base}/me/mailFolders/{folder_id}/messages"
-    response = httpx.get(url, headers=headers)
+    response = httpx.get(url, headers=headers, params=FETCH_MAIL_QUERY_PARAMS)
     response.raise_for_status()
     
     data = response.json()
     messages = data.get("value", [])
 
-    for message in messages:
-        print(message.get("subject"), message.get("bodyPreview"))
+    for msg in messages:
+        print(msg.get("subject"), msg.get("bodyPreview"))
         print("____________________________")
