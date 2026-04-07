@@ -1,0 +1,19 @@
+from collector import *
+from ms_graph import get_access_token
+
+def main():
+    token = get_access_token()
+    
+    headers = {
+        "Authorization": f"Bearer {token}"
+    }
+    
+    '''
+    folder_id = get_folder_id(headers, "Vinted")
+    print(f"ID of searched folder: {folder_id}") # * temp for debugging
+    '''
+    fetch_mails(headers, "AQMkADAwATM0MDAAMS0zZWUANi03YThjLTAwAi0wMAoALgAAA2jo-u_DmBhJsGyXYmHbLm0BAAOdbV2hdLRMoaPTCu6-rbQAA5S9_18AAAA=")
+    
+    
+if __name__ == "__main__":
+    main()
