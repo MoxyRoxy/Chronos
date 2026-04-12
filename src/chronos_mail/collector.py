@@ -19,7 +19,7 @@ def get_folder_id(headers, folder_name, parent_folder_id=None):
     folders = data.get("value", [])
     
     for folder in folders:
-       # print(folder.get("displayName"), folder.get("id")) # * temp for debugging
+       # print(folder.get("displayName"), folder.get("id")) # * for debugging
         if folder.get("displayName") == folder_name:
             return folder.get("id")
         
@@ -40,6 +40,7 @@ def fetch_mails(headers, folder_id):
     data = response.json()
     messages = data.get("value", [])
 
-    for msg in messages:
-        print(msg.get("subject"), msg.get("bodyPreview"))
-        print("____________________________")
+    return messages
+
+#def process_mails(messages):
+    
